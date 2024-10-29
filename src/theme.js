@@ -28,6 +28,9 @@ export const tokens = (mode) => ({
           700: "#0c101b",
           800: "#080b12",
           900: "#040509",
+          990:"#434957",
+          991:"#000000",
+          995:"#dbf5ee",
         },
         greenAccent: {
           100: "#dbf5ee",
@@ -85,6 +88,11 @@ export const tokens = (mode) => ({
           700: "#727681",
           800: "#a1a4ab",
           900: "#d0d1d5",
+          990:"#ECFFFE",
+          991:"#000000",
+          995:"",
+
+
         },
         greenAccent: {
           100: "#0f2922",
@@ -200,7 +208,7 @@ export const ColorModeContext = createContext({
 });
 
 export const useMode = () => {
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState("light");
 
   const colorMode = useMemo(() => ({
     toggleColorMode: () =>

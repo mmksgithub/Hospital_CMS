@@ -1,31 +1,36 @@
 import Navbar from "./layout/navbar";
 import SideBar from "./layout/sidebar";
 import Dashboard from "./dashboard";
-import Team from "./team";
+import ViewDepartments from "./departments";
 import Invoices from "./invoices";
-import Contacts from "./contacts";
+import AboutUsForm from "./about";
 import Form from "./form";
-import Calendar from "./calendar";
-import Bar from "./bar";
-import Line from "./line";
+import ViewDoctors from "./viewdoctors";
+import PhotoForm from "./gform";
+import ViewPhotos from "./gallery";
+import Contact from "./contact";
+import ViewHero from "./hero";
+import ViewServices from "./services";
 import Pie from "./pie";
-import Stream from "./stream";
-import FAQ from "./faq";
+import Links from "./links";
 import Geography from "./geography";
+
 
 export {
   Navbar,
   SideBar,
   Dashboard,
-  Team,
+  ViewDepartments,
   Invoices,
-  Contacts,
+  AboutUsForm,
   Form,
-  Calendar,
-  Bar,
-  Line,
+  ViewDoctors,
+  PhotoForm,
+  ViewPhotos,
+  Contact,
+  ViewHero,
+  ViewServices,
   Pie,
-  Stream,
-  FAQ,
+  Links,
   Geography,
 };

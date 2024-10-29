@@ -6,15 +6,19 @@ const Item = ({ title, path, icon }) => {
   const location = useLocation();
   return (
     <MenuItem
-      component={<Link to={path} />}
-      to={path}
-      icon={icon}
-      rootStyles={{
-        color: path === location.pathname && "#6870fa",
-      }}
-    >
-      {title}
-    </MenuItem>
+    component={<Link to={path} />}
+    to={path}
+    icon={icon}
+    rootStyles={{
+     
+      color: path === location.pathname ? "#003333" : "#000000", // Default color when not active
+      backgroundColor: path === location.pathname ? "#41A9B5" : "transparent", // Set background color when active
+     
+    }}
+  >
+    {title}
+  </MenuItem>
+  
   );
 };
 

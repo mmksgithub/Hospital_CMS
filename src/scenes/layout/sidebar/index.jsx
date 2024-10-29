@@ -1,39 +1,59 @@
 /* eslint-disable react/prop-types */
 import { Avatar, Box, IconButton, Typography, useTheme } from "@mui/material";
 import { useContext, useState } from "react";
-import { tokens } from "../../../theme";
-import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import {
+  DashboardOutlined,
+  PeopleAltOutlined,
+  ExpandMore,
+  ExpandLess,
+  ContactsOutlined,
+  ReceiptOutlined,
+  AddCircleOutline,
+  ListAltOutlined,
   BarChartOutlined,
   CalendarTodayOutlined,
-  ContactsOutlined,
-  DashboardOutlined,
   DonutLargeOutlined,
   HelpOutlineOutlined,
   MapOutlined,
   MenuOutlined,
-  PeopleAltOutlined,
-  PersonOutlined,
-  ReceiptOutlined,
-  TimelineOutlined,
-  WavesOutlined,
+  LinkOutlined,
+  DesktopMacOutlined,
+  TvOutlined,
+  RecentActorsOutlined,
+  PhotoSizeSelectActualOutlined,
+  AdUnitsOutlined,
+  MedicalServicesOutlined,
 } from "@mui/icons-material";
-import avatar from "../../../assets/images/avatar.png";
-import logo from "../../../assets/images/logo.png";
+import { tokens } from "../../../theme";
 import Item from "./Item";
 import { ToggledContext } from "../../../App";
+import logo from "../../../assets/images/vasudev-logo-rb.png";
 
 const SideBar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { toggled, setToggled } = useContext(ToggledContext);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  // State to handle dropdown toggle for CMS Doctors
+  const [isDoctorsDropdownOpen, setIsDoctorsDropdownOpen] = useState(false);
+  // State to handle dropdown toggle for CMS Gallery
+  const [isGalleryDropdownOpen, setIsGalleryDropdownOpen] = useState(false);
+
   return (
     <Sidebar
-      backgroundColor={colors.primary[400]}
+    backgroundColor={colors.primary[990]}
+
       rootStyles={{
         border: 0,
         height: "100%",
+        backgroundColor:"#CBF3EE",
+
+        width: "17.5%",
+        boxShadow: "5px 0 5px rgba(0, 0, 0, 0.1)",
+        fontFamily: "Figtree",
+
       }}
       collapsed={collapsed}
       onBackdropClick={() => setToggled(false)}
@@ -48,8 +68,7 @@ const SideBar = () => {
         <MenuItem
           rootStyles={{
             margin: "10px 0 20px 0",
-            color: colors.gray[100],
-          }}
+            color: colors.primary[100],          }}
         >
           <Box
             sx={{
@@ -60,32 +79,45 @@ const SideBar = () => {
           >
             {!collapsed && (
               <Box
-                display="flex"
-                alignItems="center"
-                gap="12px"
-                sx={{ transition: ".3s ease" }}
-              >
-                <img
-                  style={{ width: "30px", height: "30px", borderRadius: "8px" }}
-                  src={logo}
-                  alt="Argon"
-                />
+              display="flex"
+              alignItems="center"
+              gap="12px"
+              sx={{ transition: ".3s ease" }}
+            >
+              <Box
+                component="img"
+                src={logo}
+                alt="Argon"
+                sx={{
+                  width: {
+                    xs: "150px", // Extra small screens (mobile)
+                    sm: "200px", // Small screens
+                    md: "210px", // Medium screens
+                    lg: "300px", // Large screens
+                  },
+                  height: {
+                    xs: "50px", // Extra small screens
+                    sm: "60px", // Small screens
+                    md: "65px", // Medium screens
+                    lg: "75px", // Large screens
+                  },
+                  borderRadius: "5px",
+                  marginTop: "25px",
+                }}
+              />
                 <Typography
                   variant="h4"
                   fontWeight="bold"
                   textTransform="capitalize"
-                  color={colors.greenAccent[500]}
-                >
-                  Argon
-                </Typography>
+                  color= "colors.primary[100]"  
+                ></Typography>
               </Box>
             )}
-            <IconButton onClick={() => setCollapsed(!collapsed)}>
-              <MenuOutlined />
-            </IconButton>
+           
           </Box>
         </MenuItem>
       </Menu>
+
       {!collapsed && (
         <Box
           sx={{
@@ -96,167 +128,334 @@ const SideBar = () => {
             mb: "25px",
           }}
         >
-          <Avatar
-            alt="avatar"
-            src={avatar}
-            sx={{ width: "100px", height: "100px" }}
-          />
           <Box sx={{ textAlign: "center" }}>
-            <Typography variant="h3" fontWeight="bold" color={colors.gray[100]}>
-              Tony Stark
+            <Typography
+              variant="h3"
+              fontSize="25px"
+              fontWeight="bold"
+              marginTop="15px"
+              color="colors.primary[100]"   
+              fontFamily= "Figtree"
+              >
+              Anantha Vasudev Hospital 
+              <hr />
             </Typography>
             <Typography
               variant="h6"
               fontWeight="500"
-              color={colors.greenAccent[500]}
-            >
-              VP Fancy Admin
-            </Typography>
+               color="colors.primary[100]"
+            ></Typography>
           </Box>
         </Box>
       )}
 
-      <Box mb={5} pl={collapsed ? undefined : "5%"}>
+      <Box mb={5} pl={collapsed ? undefined : ""}>
         <Menu
           menuItemStyles={{
             button: {
+               color:colors.primary[100],
+              fontSize: "18px", 
               ":hover": {
-                color: "#868dfb",
                 background: "transparent",
                 transition: ".4s ease",
+                backgroundColor: "#a0a0a0",
+
+              },
+            },
+          }}
+        >
+          {/* <IconButton onClick={() => setCollapsed(!collapsed)}>
+              <MenuOutlined />
+            </IconButton> */}
+          <Item
+            title="Website"
+            path="http://localhost:5173/"
+            colors={colors}
+            icon={<DesktopMacOutlined />}
+          />
+        </Menu>
+
+        <Typography
+          variant="h5"
+          color="#333a46"
+          
+          sx={{ m: "15px 0 20px 33px",               color:colors.primary[100],
+            fontFamily: "Figtree",
+            fontSize: "20px",
+
+
+          }}
+        >
+          {!collapsed ? "CMS  DASHBOARD" : ""}
+        </Typography>
+
+        <Menu
+          menuItemStyles={{
+            button: {
+              fontSize: "18px",
+              ":hover": {
+                color:"colors.primary[100]",            transition: ".4s ease",
+                backgroundColor: "#a0a0a0",
+
+              },
+            },
+          }}
+        >
+          {/* CMS Doctors Dropdown */}
+          <MenuItem
+            rootStyles={{ display: "flex", justifyContent: "space-between" ,fontSize: "18px",            color: colors.primary[100],
+ 
+            }}
+            onClick={() => setIsDoctorsDropdownOpen(!isDoctorsDropdownOpen)}
+            icon={<PeopleAltOutlined />}
+            style={{ cursor: "pointer" }}
+          >
+            <Box display="flex" justifyContent="space-between" width="100"  color="colors.primary[100]"  >
+              <Typography sx={{fontSize: "18px", color: colors.gray[100],             fontFamily: "Figtree",
+}}> Doctors</Typography>
+              <Box sx={{ ml: "auto", pl: "170px", }}>
+                {isDoctorsDropdownOpen ? (
+                  <ExpandLess />
+                ) : (
+                  <ExpandMore />
+                )}
+              </Box>
+            </Box>
+          </MenuItem>
+
+          {isDoctorsDropdownOpen && (
+            <>
+               <Menu
+          menuItemStyles={{
+            button: {
+               color:colors.primary[100],
+              fontSize: "18px", 
+              ":hover": {
+                background: "transparent",
+                transition: ".4s ease",
+                backgroundColor: "#a0a0a0",
+              },
+            },
+          }}
+        >
+              <Item
+                title="Add Doctors"
+                path="/form" // Make sure the path matches your routing
+                colors={colors}
+                icon={<AddCircleOutline />}
+              /></Menu>
+
+              <Menu
+          menuItemStyles={{
+            button: {
+               color:colors.primary[100],
+              fontSize: "18px", 
+              ":hover": {
+                background: "transparent",
+                transition: ".4s ease",
+                backgroundColor: "#a0a0a0",
+              },
+            },
+          }}
+        >
+              <Item
+                title="View Doctors"
+                path="/view-doctors" // Assuming you have a path for viewing doctors
+                colors={colors}
+                icon={<ListAltOutlined />}
+              />
+              </Menu>
+            </>
+          )}
+
+          {/* CMS Gallery Dropdown */}
+          <MenuItem
+            rootStyles={{ display: "flex", justifyContent: "space-between" ,color: colors.gray[100],}}
+            onClick={() => setIsGalleryDropdownOpen(!isGalleryDropdownOpen)}
+            icon={<PhotoSizeSelectActualOutlined/>} // You can replace this with a relevant icon
+            style={{ cursor: "pointer" }}
+          >
+            <Box display="flex" justifyContent="space-between" width="100%" >
+              <Typography sx={{fontSize: "18px",color: colors.gray[100],            fontFamily: "Figtree",
+}}> Gallery</Typography>
+              <Box sx={{ ml: "auto", pl: "175px" }}>
+                {isGalleryDropdownOpen ? (
+                  <ExpandLess />
+                ) : (
+                  <ExpandMore />
+                )}
+              </Box>
+            </Box>
+          </MenuItem>
+
+          {isGalleryDropdownOpen && (
+            <>
+                 <Menu
+          menuItemStyles={{
+            button: {
+               color:colors.primary[100],
+              fontSize: "18px", 
+              ":hover": {
+                background: "transparent",
+                transition: ".4s ease",
+                backgroundColor: "#a0a0a0",
+              },
+            },
+          }}
+        >
+ <Item
+  title="Add Photos"
+  path="/add-photos" // Path for adding photos
+  colors={colors}
+  icon={<AddCircleOutline />} // Set icon color
+/>
+</Menu>
+
+<Menu
+          menuItemStyles={{
+            button: {
+               color:colors.primary[100],
+              fontSize: "18px", 
+              ":hover": {
+                background: "transparent",
+                transition: ".4s ease",
+                backgroundColor: "#a0a0a0",
+              },
+            },
+          }}
+        >
+              <Item
+                title="View Photos"
+                path="/view-photos" // Path for viewing photos
+                colors={colors}
+                icon={<ListAltOutlined />}
+              />
+              </Menu>
+            </>
+          )}
+
+<Menu
+          menuItemStyles={{
+            button: {
+               color:colors.primary[100],
+              fontSize: "18px", 
+              ":hover": {
+                background: "transparent",
+                transition: ".4s ease",
+                backgroundColor: "#a0a0a0",
               },
             },
           }}
         >
           <Item
-            title="Dashboard"
-            path="/"
+            title="AboutUs"
+            path="/about-us"
+            colors={colors}
+            icon={<ContactsOutlined />}
+          />
+          </Menu>
+          <Menu
+          menuItemStyles={{
+            button: {
+               color:colors.primary[100],
+              fontSize: "18px", 
+              ":hover": {
+                background: "transparent",
+                transition: ".4s ease",
+                backgroundColor: "#a0a0a0",
+              },
+            },
+          }}
+        >
+          <Item
+            title="ContactUs"
+            path="/contact-us"
+            colors={colors}
+            icon={<RecentActorsOutlined />}
+          />           
+          </Menu>
+          <Menu
+          menuItemStyles={{
+            button: {
+               color:colors.primary[100],
+              fontSize: "18px", 
+              ":hover": {
+                background: "transparent",
+                transition: ".4s ease",
+                backgroundColor: "#a0a0a0",
+              },
+            },
+          }}
+        >
+<Item   title="Flash Banner"
+            path="/hero"
+            colors={colors}
+            icon={<AdUnitsOutlined />}
+          />
+        </Menu>
+
+        <Menu
+          menuItemStyles={{
+            button: {
+               color:colors.primary[100],
+              fontSize: "18px", 
+              ":hover": {
+                background: "transparent",
+                transition: ".4s ease",
+                backgroundColor: "#a0a0a0",
+              },
+            },
+          }}
+        >
+<Item   title="Services"
+            path="/services"
+            colors={colors}
+            icon={<MedicalServicesOutlined />}
+          />
+        </Menu>
+
+        <Menu
+          menuItemStyles={{
+            button: {
+               color:colors.primary[100],
+              fontSize: "18px", 
+              ":hover": {
+                background: "transparent",
+                transition: ".4s ease",
+                backgroundColor: "#a0a0a0",
+              },
+            },
+          }}
+        >
+<Item   title="Departments"
+            path="/departments"
             colors={colors}
             icon={<DashboardOutlined />}
           />
         </Menu>
-        <Typography
-          variant="h6"
-          color={colors.gray[300]}
-          sx={{ m: "15px 0 5px 20px" }}
-        >
-          {!collapsed ? "Data" : " "}
-        </Typography>{" "}
+
         <Menu
           menuItemStyles={{
             button: {
+               color:colors.primary[100],
+              fontSize: "18px", 
               ":hover": {
-                color: "#868dfb",
                 background: "transparent",
                 transition: ".4s ease",
+                backgroundColor: "#a0a0a0",
               },
             },
           }}
         >
-          <Item
-            title="Manage Team"
-            path="/team"
+<Item   title="Social Links"
+            path="/links"
             colors={colors}
-            icon={<PeopleAltOutlined />}
-          />
-          <Item
-            title="Contacts Information"
-            path="/contacts"
-            colors={colors}
-            icon={<ContactsOutlined />}
-          />
-          <Item
-            title="Invoices Balances"
-            path="/invoices"
-            colors={colors}
-            icon={<ReceiptOutlined />}
+            icon={<LinkOutlined/>}
           />
         </Menu>
-        <Typography
-          variant="h6"
-          color={colors.gray[300]}
-          sx={{ m: "15px 0 5px 20px" }}
-        >
-          {!collapsed ? "Pages" : " "}
-        </Typography>
-        <Menu
-          menuItemStyles={{
-            button: {
-              ":hover": {
-                color: "#868dfb",
-                background: "transparent",
-                transition: ".4s ease",
-              },
-            },
-          }}
-        >
-          <Item
-            title="Profile Form"
-            path="/form"
-            colors={colors}
-            icon={<PersonOutlined />}
-          />
-          <Item
-            title="Calendar"
-            path="/calendar"
-            colors={colors}
-            icon={<CalendarTodayOutlined />}
-          />
-          <Item
-            title="FAQ Page"
-            path="/faq"
-            colors={colors}
-            icon={<HelpOutlineOutlined />}
-          />
-        </Menu>
-        <Typography
-          variant="h6"
-          color={colors.gray[300]}
-          sx={{ m: "15px 0 5px 20px" }}
-        >
-          {!collapsed ? "Charts" : " "}
-        </Typography>
-        <Menu
-          menuItemStyles={{
-            button: {
-              ":hover": {
-                color: "#868dfb",
-                background: "transparent",
-                transition: ".4s ease",
-              },
-            },
-          }}
-        >
-          <Item
-            title="Bar Chart"
-            path="/bar"
-            colors={colors}
-            icon={<BarChartOutlined />}
-          />
-          <Item
-            title="Pie Chart"
-            path="/pie"
-            colors={colors}
-            icon={<DonutLargeOutlined />}
-          />
-          <Item
-            title="Line Chart"
-            path="/line"
-            colors={colors}
-            icon={<TimelineOutlined />}
-          />
-          <Item
-            title="Geography Chart"
-            path="/geography"
-            colors={colors}
-            icon={<MapOutlined />}
-          />
-          <Item
-            title="Stream Chart"
-            path="/stream"
-            colors={colors}
-            icon={<WavesOutlined />}
-          />
+
+
+
         </Menu>
       </Box>
     </Sidebar>
